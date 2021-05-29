@@ -1,2 +1,2 @@
-# dugeon_explorer
+# dungeon_explorer
 Dungeon Exploration
