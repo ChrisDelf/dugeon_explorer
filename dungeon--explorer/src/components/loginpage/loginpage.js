@@ -2,9 +2,10 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import { Form, Field, withFormik } from 'formik/dist/index';
 import * as Yup from 'yup';
+import {loginUser} from '../../actions/authActions';
 
 const LoginForm = props => {
-
+const {loginUser} = props
 
 
 return(<>
@@ -47,10 +48,17 @@ return{
   }),
 
   handleSubmit(values, {props}){
-  console.log("poop", values, props)}
+
+  loginUser(values, props.history)}
 
 
 })(LoginForm)
 
 
-export default FormikLoginForm; 
+const mapStateToProps = state => {
+  return{
+  token: state.userReducer.token
+  }
+};
+
+export default connect(mapStateToProps, {loginUser})(FormikLoginForm); 
