@@ -19,12 +19,14 @@ const initState = {
 const userReducer = (state = initState, {type, payload}) => {
   switch (type) {
     case LOGIN_START:
+      console.log("START", payload)
     return{...state,
     error:'',
     authLoading: true,
     };
 
     case LOGIN_SUCCESS:
+      console.log("SUCCESS",payload)
     return {
     ...state,
     error:'',
@@ -35,6 +37,7 @@ const userReducer = (state = initState, {type, payload}) => {
     maps: payload.maps}
 
     case LOGIN_FAILURE:
+      console.log("Failure", payload)
     return{
     ...state,
     error:payload.error,
