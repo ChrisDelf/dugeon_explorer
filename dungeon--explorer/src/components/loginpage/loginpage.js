@@ -5,7 +5,7 @@ import * as Yup from 'yup';
 import {loginUser} from '../../actions/authActions';
 
 const LoginForm = props => {
-const {loginUser} = props
+//const {loginUser} = props
 
 
 return(<>
@@ -48,8 +48,7 @@ return{
   }),
 
   handleSubmit(values, {props}){
-
-  loginUser(values, props.history)}
+  props.loginUser(values, props.history)}
 
 
 })(LoginForm)
