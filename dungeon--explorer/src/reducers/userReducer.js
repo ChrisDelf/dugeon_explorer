@@ -4,6 +4,9 @@ const {
   LOGIN_START,
   LOGIN_SUCCESS,
   LOGIN_FAILURE,
+  REGISTER_USER_START,
+  REGISTER_USER_SUCCESS,
+  REGISTER_USER_FAILURE,
 } = types;
 
 const initState = {
@@ -19,30 +22,43 @@ const initState = {
 const userReducer = (state = initState, {type, payload}) => {
   switch (type) {
     case LOGIN_START:
-      console.log("START", payload)
     return{...state,
     error:'',
     authLoading: true,
     };
 
     case LOGIN_SUCCESS:
-      console.log("SUCCESS",payload)
     return {
     ...state,
     error:'',
     authLoading: false,
     token: payload.token,
-    userName: payload.username,
-    id:payload.id,
-    maps: payload.maps}
+   }
 
     case LOGIN_FAILURE:
-      console.log("Failure", payload)
     return{
     ...state,
     error:payload.error,
     authLoading: false,
     }
+
+    case REGISTER_USER_START:
+      return {...state,
+      error:'',
+      authLoading: true
+      };
+
+    case REGISTER_USER_SUCCESS:
+      return {...state,
+        error: '',
+        authLoading: false,
+        token:payload.token, }
+
+    case REGISTER_USER_FAILURE:
+      return{...state,
+        error: payload.error,
+        authLoading: false,
+      }
 
     default:
       return state;

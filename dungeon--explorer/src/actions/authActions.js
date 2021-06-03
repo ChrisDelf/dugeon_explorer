@@ -19,32 +19,58 @@ const apiClient = "doge"
 const apiSecret = "doge"
 
 
-export const loginUser = (data, history) => {
+export const loginUser = (data, history) => dispatch => {
     // Oauth Cannot handle straight json have to make a Object 
   const requestData = new FormData();
   requestData.set('username', data.username);
   requestData.set('password', data.password);
   requestData.set('grant_type', 'password');
-    return dispatch => {
-  dispatch({type: LOGIN_START})
-
+  dispatch({type: LOGIN_START});
     return axios({
-      method:'POST',
-      url:`${url}/login`,
+      method: 'POST',
+      url: `${url}/login`,
       data: requestData,
-      headers: {'Content-Type': 'application/x-www-form-urlencoded',
+      headers: {
+        'Content-Type': 'application/x-www-form-urlencoded',
         Authorization: `Basic ${btoa(`${apiClient}:${apiSecret}`)}`,
       },
     })
-  
-    .then(res => {
-    localStorage.setItem('token', res.data.token);
+      .then(res => {
+        localStorage.setItem('token', res.data.token);
 
-    dispatch({type: LOGIN_SUCCESS, payload: res.data})
+          dispatch({type: LOGIN_SUCCESS, payload: res.data});
+              })
+      .catch(err => {
+        dispatch({
+          type: LOGIN_FAILURE,
+          payload: err });
+      });
+    
+};
 
+
+export const registerUser = (data, history) => dispatch => {
+  console.log(data);
+  dispatch({type: REGISTER_USER_START});
+  return axios({
+    method: 'POST',
+    url: `${url}/users/register`,
+    data: data,
+    headers: {
+      Authorization: `Basic ${btoa(`${apiClient}:${apiSecret}`)}`,
+    },
   })
-    .catch(err => {
-    dispatch({type: LOGIN_FAILURE, paylaod: err})
+    .then(res => {
+      dispatch({type: REGISTER_USER_SUCCESS, payload: res.data});
+      history.push('/display');
     })
-  }
-}
+    .catch(err => {
+      dispatch({type: REGISTER_USER_FAILURE, payload: err});
+    });
+};
+
+
+
+
+
+
