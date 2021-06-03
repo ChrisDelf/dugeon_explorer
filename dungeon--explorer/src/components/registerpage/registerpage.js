@@ -2,16 +2,19 @@ import React, {useEffect} from 'react';
 import {connect} from 'react-redux';
 import { Form, Field, withFormik } from 'formik/dist/index';
 import * as Yup from 'yup';
-import {loginUser} from '../../actions/authActions';
+import {registerUser} from '../../actions/authActions';
 import ErrorNotice from '../errornotice/errornotice.js'
-const LoginForm = props => {
-//const {loginUser} = props
 
 
-return(<>
+const registerForm = props => {
+
+
+return(
+
+<>
   <div className = 'loginContainer'>
   <Form className = 'formContainer'>
-  <h1>Login</h1>
+  <h1>Register</h1>
   <label>
   Username
   <Field className = 'formInputs' type = 'text' name = "username"/> 
@@ -26,39 +29,50 @@ return(<>
   <ErrorNotice>{props.errors.password}</ErrorNotice>
   )}
   </label>
+  <label>
+  Email
+  <Field className = 'formInputs' type = 'email' name = "email"/>
+ {props.touched.email && props.errors.email && (
+  <ErrorNotice>{props.errors.email}</ErrorNotice>
+  )}
+  </label>
+
   <div className = 'btnContainer'>
-  <button className = 'btnLogin' type = 'submit'>
-  Login
+    <button className = 'btnReg'type = 'submit'>Register</button>
+
+  <button className = 'btnLogin' onClick = { () => {props.history.push('/');}}>
+  Already Have an account login here
   </button>
-  <button className = 'btnReg' onClick = { () => {props.history.push('/register/');}}>Register</button>
+
   </div>
 
 
   </Form>
   </div>
 
-  </>)}
+  </>
+)}
 
-
-// formik configuration
-const FormikLoginForm = withFormik({
-mapPropsToValues({username, password}){
+const FormikRegisterForm = withFormik({
+mapPropsToValues({username, password, email}){
 return{
   username: username || '',
-  password: password || ''
+  password: password || '',
+  email: email || '',
 };
 },
 
   validationSchema: Yup.object().shape({
     username: Yup.string().required('Please enter a username'),
-    password: Yup.string().required('Enter a password')
+    password: Yup.string().required('Enter a password'),
+    email: Yup.string().required('Enter in an email')
   }),
 
   handleSubmit(values, {props}){
-  props.loginUser(values, props.history)}
+  props.registerUser(values, props.history)}
 
 
-})(LoginForm)
+})(registerForm)
 
 
 const mapStateToProps = state => {
@@ -67,4 +81,6 @@ const mapStateToProps = state => {
   }
 };
 
-export default connect(mapStateToProps, {loginUser})(FormikLoginForm); 
+export default connect(mapStateToProps, {registerUser})(FormikRegisterForm); 
+
+

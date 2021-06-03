@@ -47,3 +47,30 @@ export const loginUser = (data, history) => dispatch => {
       });
     
 };
+
+
+export const registerUser = (data, history) => dispatch => {
+  console.log(data);
+  dispatch({type: REGISTER_USER_START});
+  return axios({
+    method: 'POST',
+    url: `${url}/users/register`,
+    data: data,
+    headers: {
+      Authorization: `Basic ${btoa(`${apiClient}:${apiSecret}`)}`,
+    },
+  })
+    .then(res => {
+      dispatch({type: REGISTER_USER_SUCCESS, payload: res.data});
+      history.push('/display');
+    })
+    .catch(err => {
+      dispatch({type: REGISTER_USER_FAILURE, payload: err});
+    });
+};
+
+
+
+
+
+
