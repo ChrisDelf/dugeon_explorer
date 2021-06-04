@@ -8,7 +8,10 @@ const {
   LOGIN_FAILURE,
   REGISTER_USER_START,
   REGISTER_USER_SUCCESS,
-  REGISTER_USER_FAILURE
+  REGISTER_USER_FAILURE,
+  GET_USER_INFO_START,
+  GET_USER_INFO_SUCCESS,
+  GET_USER_INFO_FAILURE
 } = types;
 
 
@@ -70,7 +73,17 @@ export const registerUser = (data, history) => dispatch => {
 };
 
 
-
+export const getUserInfo = userid => dispatch => {
+  dispatch({type: GET_USER_INFO_START});
+  return axiosWithAuth()
+    .get(`/users/display/${userid}`)
+    .then(res => {
+      dispatch({type: GET_USER_INFO_SUCCESS, payload: res.data});
+    })
+    .catch(err => {
+      dispatch({type: GET_USER_INFO_FAILURE, payload: err});
+    });
+};
 
 
 
