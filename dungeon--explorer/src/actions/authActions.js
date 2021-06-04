@@ -39,7 +39,7 @@ export const loginUser = (data, history) => dispatch => {
         localStorage.setItem('token', res.data.token);
 
           dispatch({type: LOGIN_SUCCESS, payload: res.data});
-              })
+           history.push('/homepage/')   })
       .catch(err => {
         dispatch({
           type: LOGIN_FAILURE,
