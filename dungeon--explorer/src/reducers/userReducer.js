@@ -1,4 +1,4 @@
-import {types} from '../actions/index';
+import { types } from '../actions/index';
 
 const {
   LOGIN_START,
@@ -12,57 +12,63 @@ const {
 const initState = {
   id: '',
   userName: '',
-  token:'',
+  token: '',
   authLoading: false,
   isAuthSuccess: false,
-  error:'',
-  maps: [],};
+  error: '',
+  maps: [],
+};
 
 
-const userReducer = (state = initState, {type, payload}) => {
+const userReducer = (state = initState, { type, payload }) => {
   switch (type) {
     case LOGIN_START:
-    return{...state,
-    error:'',
-    authLoading: true,
-    };
+      return {
+        ...state,
+        error: '',
+        authLoading: true,
+      };
 
     case LOGIN_SUCCESS:
-    return {
-    ...state,
-    error:'',
-    authLoading: false,
-    token: payload.token,
-   }
+      return {
+        ...state,
+        error: '',
+        authLoading: false,
+        token: payload.token,
+      }
 
     case LOGIN_FAILURE:
-    return{
-    ...state,
-    error:payload.error,
-    authLoading: false,
-    }
+      return {
+        ...state,
+        error: payload.error,
+        authLoading: false,
+      }
 
     case REGISTER_USER_START:
-      return {...state,
-      error:'',
-      authLoading: true
+      return {
+        ...state,
+        error: '',
+        authLoading: true
       };
 
     case REGISTER_USER_SUCCESS:
-      return {...state,
+      return {
+        ...state,
         error: '',
         authLoading: false,
-        token:payload.token, }
+        token: payload.token,
+      }
 
     case REGISTER_USER_FAILURE:
-      return{...state,
+      return {
+        ...state,
         error: payload.error,
         authLoading: false,
       }
 
     default:
       return state;
-    
+
   }
 }
 
