@@ -17,27 +17,43 @@ border-radius: 3px;
 /* this is using the theme provider */
   color: ${props => props.theme.primary};
   border: ${props => props.theme.secondary};
-
-
 `
+const Header = styled.h1`
+font-size: 2em;
+align-self: center;
+`
+const Container = styled.div`
+ color: ${props => props.theme.primary};
+  border: ${props => props.theme.secondary};
+  display: flex;
+  justify-content: center;
+
+ .formContainer{
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+ }
+ 
+`
+
 
 const LoginForm = props => {
   //const {loginUser} = props
 
 
-  return (<>
-    <div className='loginContainer'>
+  return (
+    <Container>
       <Form className='formContainer'>
-        <h1>Login</h1>
+        <Header>Login</Header>
         <label>
-          Username
+          Username {' '}
           <Field className='formInputs' type='text' name="username" />
           {props.touched.username && props.errors.username && (
             <ErrorNotice>{props.errors.username}</ErrorNotice>
           )}
         </label>
         <label>
-          Password
+          Password  {'  '}
           <Field className='formInputs' type='password' name="password" />
           {props.touched.password && props.errors.password && (
             <ErrorNotice>{props.errors.password}</ErrorNotice>
@@ -52,9 +68,9 @@ const LoginForm = props => {
 
 
       </Form>
-    </div>
+    </Container>
 
-  </>)
+  )
 }
 
 
