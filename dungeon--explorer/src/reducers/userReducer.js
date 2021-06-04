@@ -16,7 +16,7 @@ const initState = {
   authLoading: false,
   isAuthSuccess: false,
   error: '',
-  maps: [],
+  mapIds: [],
 };
 
 
