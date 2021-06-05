@@ -24,6 +24,11 @@ border-radius: 3px;
 /* this is using the theme provider */
   color: ${props => props.theme.primary};
   border: ${props => props.theme.secondary};
+
+&:hover {
+  background: ${props => props.theme.secondary};
+  color:  ${props => props.theme.primary}
+
 `
 
 const Header = styled.h1`

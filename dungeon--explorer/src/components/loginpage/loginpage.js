@@ -8,6 +8,10 @@ import styled from 'styled-components';
 
 //Style Components
 
+const Header = styled.h1`
+font-size: 2em;
+align-self: center;
+`
 const Button = styled.button`
 font-size: 1em;
 margin: 1em;
@@ -17,24 +21,31 @@ border-radius: 3px;
 /* this is using the theme provider */
   color: ${props => props.theme.primary};
   border: ${props => props.theme.secondary};
+
+&:hover {
+  background: ${props => props.theme.secondary};
+  color:  ${props => props.theme.primary}
+
+}
+
 `
-const Header = styled.h1`
-font-size: 2em;
-align-self: center;
-`
+
 const Container = styled.div`
  color: ${props => props.theme.primary};
   border: ${props => props.theme.secondary};
   display: flex;
   justify-content: center;
 
+
  .formContainer{
   display: flex;
   justify-content: center;
   flex-direction: column;
- }
- 
+}
+
+
 `
+
 
 
 const LoginForm = props => {
@@ -60,10 +71,10 @@ const LoginForm = props => {
           )}
         </label>
         <div className='btnContainer'>
-          <Button className='btnLogin' type='submit'>
+          <Button  type='submit'>
             Login
           </Button>
-          <Button className='btnReg' onClick={() => { props.history.push('/register/'); }}>Register</Button>
+          <Button  onClick={() => { props.history.push('/register/'); }}>Register</Button>
         </div>
 
 
