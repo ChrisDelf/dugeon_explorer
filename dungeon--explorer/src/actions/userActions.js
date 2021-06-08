@@ -6,9 +6,9 @@ const {
   GET_MAPS_START,
   GET_MAPS_SUCCESS,
   GET_MAPS_FAILURE,
-  GENERATE_MAP_START,
-  GENERATE_MAP_SUCCESS,
-  GENERATE_MAP_FAILURE,
+  GEN_MAP_START,
+  GEN_MAP_SUCCESS,
+  GEN_MAP_FAILURE,
 } = types
 
 const url = 'http://localhost:9000'
@@ -18,12 +18,13 @@ const apiSecret = "doge"
 
 
 export const getMaps = (userid) => dispatch => {
-
+  const token = localStorage.getItem('token');
+  
   dispatch({ type: GET_MAPS_START });
 
   axios({
     method: 'GET',
-    url: `${url}/users/getmap/${userid}`,
+    url: `${url}/users/getmaps/${userid}`,
     data: userid,
     header: {
       Authorization: token,
@@ -46,7 +47,7 @@ export const getMaps = (userid) => dispatch => {
 export const generateMap = (data, userid) => dispatch => {
   const token = localStorage.getItem('token');
 
-    dispatch({type: MAP_GEN_START});
+    dispatch({type: GEN_MAP_START});
 
    axios({
       method: 'GET',
@@ -57,10 +58,10 @@ export const generateMap = (data, userid) => dispatch => {
       },
     })
       .then(res => {
-              dispatch({type: MAP_GEN_SUCCESS, payload: res});
+              dispatch({type: GEN_MAP_SUCCESS, payload: res});
       })
       .catch(err => {
-              dispatch({type: MAP_GEN_FAILURE, payload: err});
+              dispatch({type: GEN_MAP_FAILURE, payload: err});
       });
  };
 

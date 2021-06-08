@@ -1,5 +1,6 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+import { getMaps } from '../../actions/userActions';
 import styled from 'styled-components';
 
 const Container = styled.div`
@@ -44,17 +45,18 @@ const HomePage = props => {
     <div className="formContainer">
       <Header> Menu </Header>
       <Button>New Game</Button>
-      <Button>Load Map</Button>
+      <Button onClick={() => { props.getMaps(props.userId)}}>Load Map</Button>
       <Button>Logout</Button>
     </div>
 
   </Container>
   )
 
-
-
-
+}
+const mapStateToProps = state => {
+  return {
+    userId: state.userReducer.token
+  }
 }
 
-
-export default HomePage;
+export default connect(mapStateToProps, { getMaps })(HomePage);
