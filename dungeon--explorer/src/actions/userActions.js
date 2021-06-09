@@ -46,12 +46,13 @@ export const getMaps = (userid) => dispatch => {
 
 export const generateMap = (data, userid) => dispatch => {
   const token = localStorage.getItem('token');
+  console.log(data)
 
     dispatch({type: GEN_MAP_START});
 
    axios({
-      method: 'GET',
-      url: `${url}/users/test/${userid}`,
+      method: 'POST',
+      url: `${url}/game/generatemap/${userid}`,
       data: data,
       headers: {
         Authorization: token,

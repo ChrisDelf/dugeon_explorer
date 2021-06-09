@@ -44,7 +44,7 @@ const HomePage = props => {
   return (<Container>
     <div className="formContainer">
       <Header> Menu </Header>
-      <Button>New Game</Button>
+      <Button onClick = {() => {props.history.push("/newgame/")}}>New Game</Button>
       <Button onClick={() => { props.getMaps(props.userId)}}>Load Map</Button>
       <Button>Logout</Button>
     </div>

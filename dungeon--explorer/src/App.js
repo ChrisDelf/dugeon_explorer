@@ -12,6 +12,7 @@ import { ThemeProvider } from 'pcln-design-system'
 import FormikLoginForm from './components/loginpage/loginpage.js'
 import FormikRegisterForm from './components/registerpage/registerpage.js'
 import HomePage from './components/homepage/homepage.js'
+import FormikMapForm from './components/mapcreation/mapForm.js';
 // setting up the general theme I want the project in 
 
 const theme = {
@@ -26,6 +27,7 @@ function App() {
         <Route exact path="/" component={FormikLoginForm} />
         <Route path="/register/" component={FormikRegisterForm} />
         <Route path="/homepage/" component ={HomePage} />
+        <Route path ="/newgame/" component = {FormikMapForm}/>
       </ThemeProvider>
     </Router>
   );
