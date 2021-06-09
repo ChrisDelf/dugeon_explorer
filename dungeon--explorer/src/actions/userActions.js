@@ -51,8 +51,8 @@ export const generateMap = (data, userid) => dispatch => {
     dispatch({type: GEN_MAP_START});
 
    axios({
-      method: 'GET',
-      url: `${url}/users/test/${userid}`,
+      method: 'POST',
+      url: `${url}/game/generatemap/${userid}`,
       data: data,
       headers: {
         Authorization: token,
