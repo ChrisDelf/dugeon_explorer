@@ -30,7 +30,7 @@ const playerReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         error: '',
-        map: payload.map,
+        maps: payload,
         playerLoading: false
       }
 
@@ -53,7 +53,7 @@ const playerReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         error: '',
-        maps: payload,
+        selectedMap: payload,
         playerLoading: false,
       }
 
