@@ -46,7 +46,7 @@ export const getMaps = (userid) => dispatch => {
 
 export const generateMap = (data, userid) => dispatch => {
   const token = localStorage.getItem('token');
-  console.log(data)
+  
 
     dispatch({type: GEN_MAP_START});
 

@@ -1,19 +1,22 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
-import { getMaps } from '../../actions/userActions';
 import styled from 'styled-components';
+import { getMaps } from '../../actions/userActions.js'
+
 
 const Container = styled.div`
  color: ${props => props.theme.primary};
   border: ${props => props.theme.secondary};
   display: flex;
   justify-content: center;
+  flex-direction: column;
 
- .formContainer{
+ .btnContainer{
   display: flex;
   justify-content: center;
   flex-direction: column;
- } 
+
+
 `
 
 const Button = styled.button`
@@ -30,6 +33,7 @@ border-radius: 3px;
   background: ${props => props.theme.secondary};
   color:  ${props => props.theme.primary}
 
+}
 `
 
 const Header = styled.h1`
@@ -37,26 +41,34 @@ font-size: 2em;
 align-self: center;
 `
 
-const HomePage = props => {
+const SavedMenu = props => {
+
+  useEffect(() => {
+    props.getMaps(props.userid);
+  }, []);
+  return (
+    <Container>
+      <Header>Saved Maps<button onClick={() => { props.history.push('/homepage/') }}>Back</button>
+      </Header>
+      <div className="btnContainer">
+        {props.maps.map(m => (
+          <Button onClick={() => { console.log(m.mapid) }}>{m}</Button>))}
+      </div>
+
+    </Container>
 
 
 
-  return (<Container>
-    <div className="formContainer">
-      <Header> Menu </Header>
-      <Button onClick={() => { props.history.push("/newgame/") }}>New Game</Button>
-      <Button onClick={() => { props.history.push("/savedgames/") }}>Load Map</Button>
-      <Button>Logout</Button>
-    </div>
 
-  </Container>
   )
-
 }
+
 const mapStateToProps = state => {
   return {
-    userId: state.userReducer.token
+    maps: state.playerReducer.maps,
+    userid: state.userReducer.id,
+
   }
 }
 
-export default connect(mapStateToProps, { getMaps })(HomePage);
+export default connect(mapStateToProps, { getMaps })(SavedMenu);
