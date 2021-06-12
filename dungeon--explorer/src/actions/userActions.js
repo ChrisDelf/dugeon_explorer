@@ -76,7 +76,7 @@ export const selectMap = (mapid) => dispatch => {
 
   axios({
     method: 'GET',
-    url: `/selectmap/${mapid}`,
+    url: `${url}/selectmap/${mapid}`,
     headers: {
       Authorization: token,
     },
