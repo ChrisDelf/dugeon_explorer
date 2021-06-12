@@ -46,7 +46,7 @@ const HomePage = props => {
       <Header> Menu </Header>
       <Button onClick={() => { props.history.push("/newgame/") }}>New Game</Button>
       <Button onClick={() => { props.history.push("/savedgames/") }}>Load Map</Button>
-      <Button>Logout</Button>
+      <Button onClick={() => {props.history.push("/")}}>Logout</Button>
     </div>
 
   </Container>
