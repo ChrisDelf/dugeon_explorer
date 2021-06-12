@@ -10,7 +10,7 @@ const {
   GET_USER_INFO_START,
   GET_USER_INFO_SUCCESS,
   GET_USER_INFO_FAILURE,
-  
+
 } = types;
 
 const initState = {
@@ -87,10 +87,10 @@ const userReducer = (state = initState, { type, payload }) => {
     case GET_USER_INFO_FAILURE:
       return {
         ...state,
-        error: payload.error,
+        error: payload,
         authLoading: false,
       }
-        default:
+    default:
       return state;
 
   }
