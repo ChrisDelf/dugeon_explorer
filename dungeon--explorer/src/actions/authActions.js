@@ -27,7 +27,7 @@ export const loginUser = (data, history) => dispatch => {
   const requestData = new FormData();
   requestData.set('username', data.username);
   requestData.set('password', data.password);
-  requestData.set('grant_type', 'password');
+  requestData.set('grant_type', 'password'); 
   dispatch({ type: LOGIN_START });
   return axios({
     method: 'POST',
@@ -40,7 +40,7 @@ export const loginUser = (data, history) => dispatch => {
   })
     .then(res => {
       localStorage.setItem('token', res.data.token);
-
+     
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       history.push('/homepage/')
 

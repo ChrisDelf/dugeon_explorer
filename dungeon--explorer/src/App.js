@@ -14,6 +14,7 @@ import FormikRegisterForm from './components/registerpage/registerpage.js'
 import HomePage from './components/homepage/homepage.js'
 import FormikMapForm from './components/mapcreation/mapForm.js';
 import SavedMenu from './components/savegames/savedgamemenu.js';
+import GamePage from './components/gamepage/gamepage.js';
 // setting up the general theme I want the project in 
 
 const theme = {
@@ -30,6 +31,7 @@ function App() {
         <Route path="/homepage/" component={HomePage} />
         <Route path="/newgame/" component={FormikMapForm} />
         <Route path="/savedgames/" component={SavedMenu} />
+        <Route path="/gamepage/" component={GamePage} />
       </ThemeProvider>
     </Router>
   );

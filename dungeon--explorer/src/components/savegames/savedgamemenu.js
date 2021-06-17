@@ -52,7 +52,7 @@ const SavedMenu = props => {
       </Header>
       <div className="btnContainer">
         {props.maps.map(m => (
-          <Button onClick={() => { props.selectMap(m)}}>{m}</Button>))}
+          <Button onClick={() => { props.selectMap(m); props.history.push('/gamepage/');}}>{m}</Button>))}
       </div>
 
     </Container>
