@@ -7,13 +7,20 @@ const {
   GET_MAPS_START,
   GET_MAPS_SUCCESS,
   GET_MAPS_FAILURE,
-
+  SELECT_MAP_SUCCESS,
+  SELECT_MAP_START,
+  SELECT_MAP_FAILURE,
+ 
 } = types;
 
 
 const initState = {
+ selectedMap: '',
+ selectedGrid: [],
   maps: [],
-  selectedMap: '',
+  monsters:[],
+  players:[],
+  grid:[],
   playerLoading: false,
 }
 
@@ -63,6 +70,28 @@ const playerReducer = (state = initState, { type, payload }) => {
         error: payload,
         playerLoading: false,
       }
+    case SELECT_MAP_START:
+      return {
+        ...state,
+        error: '',
+        authLoading: true,
+      }
+    case SELECT_MAP_SUCCESS:
+      return {
+        ...state,
+        error: '',
+        grid: payload.grid,
+        players: payload.players,
+        monsters: payload.monsters,
+        authLoading: false,
+      }
+    case SELECT_MAP_FAILURE:
+      return {
+        ...state,
+        error: payload,
+        authLoading: false
+      }
+
     default:
       return state;
   }

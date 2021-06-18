@@ -39,7 +39,7 @@ export const loginUser = (data, history) => dispatch => {
     },
   })
     .then(res => {
-      localStorage.setItem('token', res.data.token);
+      localStorage.setItem('token', res.data.access_token);
      
       dispatch({ type: LOGIN_SUCCESS, payload: res.data });
       history.push('/homepage/')
@@ -82,6 +82,8 @@ export const registerUser = (data, history) => dispatch => {
     },
   })
     .then(res => {
+
+     localStorage.setItem('token', res.data.access_token);
       dispatch({ type: REGISTER_USER_SUCCESS, payload: res.data });
       history.push('/homepage/');
     }).then(res => {
