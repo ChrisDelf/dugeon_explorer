@@ -11,6 +11,8 @@ const {
   GET_USER_INFO_SUCCESS,
   GET_USER_INFO_FAILURE,
 
+
+
 } = types;
 
 const initState = {
@@ -21,7 +23,7 @@ const initState = {
   isAuthSuccess: false,
   error: '',
   mapIds: [],
-};
+ };
 
 
 const userReducer = (state = initState, { type, payload }) => {
@@ -90,7 +92,7 @@ const userReducer = (state = initState, { type, payload }) => {
         error: payload,
         authLoading: false,
       }
-    default:
+        default:
       return state;
 
   }
