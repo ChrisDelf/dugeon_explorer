@@ -1,5 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
+
+import {selectMap} from '../../actions/userActions.js'
 import styled from 'styled-components';
 
 
@@ -14,6 +16,9 @@ return(<div>MapDisplay</div>)
 
 
 
+const mapStateToProps = state => {
+return {
+  grid: state.playerReducer.grid}}
 
-export default MapDisplay;
+export default connect(mapStateToProps,{selectMap})(MapDisplay);
 

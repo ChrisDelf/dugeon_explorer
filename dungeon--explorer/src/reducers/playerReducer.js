@@ -80,7 +80,7 @@ const playerReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         error: '',
-        grid: payload.grid,
+        grid: JSON.parse(payload.grid),
         players: payload.players,
         monsters: payload.monsters,
         authLoading: false,
