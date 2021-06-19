@@ -72,12 +72,11 @@ export const generateMap = (data, userid) => dispatch => {
 
 export const selectMap = (mapid) => dispatch => {
   const token = localStorage.getItem('token');
-
   dispatch({ type: SELECT_MAP_START })
 
   axios({
     method: 'GET',
-    url: `${url}/selectmap/${mapid}`,
+    url: `${url}/game/selectmap/${mapid}`,
     headers: {
       Authorization: token,
     },
