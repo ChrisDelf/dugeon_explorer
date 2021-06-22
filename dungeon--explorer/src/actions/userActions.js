@@ -83,6 +83,7 @@ export const selectMap = (mapid) => dispatch => {
 
 
   }).then(res => {
+    
     dispatch({ type: SELECT_MAP_SUCCESS, payload: res.data })
 
   }).catch(err => {

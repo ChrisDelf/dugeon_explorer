@@ -71,7 +71,6 @@ export const loginUser = (data, history) => dispatch => {
 
 
 export const registerUser = (data, history) => dispatch => {
-  console.log(data);
   dispatch({ type: REGISTER_USER_START });
   return axios({
     method: 'POST',
