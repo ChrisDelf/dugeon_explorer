@@ -18,14 +18,14 @@ const Container = styled.div`
 `
 
 const Cell = styled.div`
- color: ${cellColor => cellColor};
-  width: 20;
-  height: 20;
+ width: 20px;
+  height: 20px;
 
 `
 const Row = styled.div`
-   width: 20;
-  height: 20;
+  display:flex;
+  width: 75%;
+  height: 20px;
 
 `
 
@@ -38,22 +38,27 @@ const DungeonDisplay = props => {
 
     props.grid.map(r =>
     (<Row>
-      {r.map(cell => {let color = ''
-         if (cell.roomType === 'Floor') {
-                color = 'brown';
-              }
-              if (cell.roomType === 'Door') {
-                color = 'gray';
-              }
-              if (cell.roomType === 'Wall') {
-                color = 'black';
-              }
-              if (cell.roomType === 'Monster') {
-                color = 'red';
-              }
-              
-            //setCellColor(color)
-              return (<Cell/>); }
+      {r.map(cell => {
+        let color = ''
+        if (cell.roomType === 'Floor') {
+          color = 'brown';
+        }
+        if (cell.roomType === 'Door') {
+          color = 'gray';
+        }
+        if (cell.roomType === 'Wall') {
+          color = 'black';
+        }
+        if (cell.roomType === 'Monster') {
+          color = 'red';
+        }
+
+        //setCellColor(color)
+        return (<Cell style={{
+          backgroundColor: color,
+
+        }} />);
+      }
 
       )}
     </Row>
