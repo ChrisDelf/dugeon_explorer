@@ -22,6 +22,7 @@ const initState = {
   players:[],
   grid:[],
   playerLoading: false,
+  playerId: '',
 }
 
 

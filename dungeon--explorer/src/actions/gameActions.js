@@ -51,3 +51,21 @@ export const updateMonster = (monsterid) => dispatch => {
 
   }).catch(err => { dispatch({ type: UPDATE_MONSTER_FAILURE , payload: err}) })
 }
+
+
+
+
+export const updateCell = (cellId) => dispatch =>{
+
+
+
+return null
+}
+
+export const playerMovement = (currentC, nextC, playerID) => dispatch => {
+
+
+
+
+return null
+}
