@@ -31,10 +31,10 @@ export const updatePlayer = (data, playerid) => dispatch => {
   }).then(res => {
     dispatch({ type: UPDATE_PLAYER_SUCCESS, payload: res.data })
 
-  }).catch(err => { dispatch({ type: UPDATE_PLAYER_FAILURE , payload: err}) })
+  }).catch(err => { dispatch({ type: UPDATE_PLAYER_FAILURE, payload: err }) })
 }
 
-export const updateMonster = (monsterid) => dispatch => {
+export const updateMonster = (data, monsterid) => dispatch => {
   const token = localStorage.getItem('token');
 
   dispatch({ type: UPDATE_MONSTER_START })
@@ -49,23 +49,61 @@ export const updateMonster = (monsterid) => dispatch => {
   }).then(res => {
     dispatch({ type: UPDATE_MONSTER_SUCCESS, payload: res.data })
 
-  }).catch(err => { dispatch({ type: UPDATE_MONSTER_FAILURE , payload: err}) })
+  }).catch(err => { dispatch({ type: UPDATE_MONSTER_FAILURE, payload: err }) })
 }
 
 
 
 
-export const updateCell = (cellId) => dispatch =>{
+export const updateCell = (cellId) => dispatch => {
 
 
 
-return null
+  return null
 }
 
-export const playerMovement = (currentC, nextC, playerID) => dispatch => {
+export const playerMovement = (e, grid) => dispatch => {
+  // since we don't have to worry about multiple players we can just grab the first one for now
+  // need to find a better solutions for this
+
+  let coord = { x: '', y: '' }
 
 
 
+  let key = e.key
+  // up
+  if (key.toLowerCase() == "w") {
+    coord.x = 0;
+    coord.y = 1
+  }
+  // down
+  if (key.toLowerCase() == "s") {
+    coord.x = 0;
+    coord.y = -1;
 
-return null
+  }
+
+  //left
+  if (key.toLowerCase() == "a") {
+    coord.x = -1;
+    coord.y = 0;
+
+  }
+
+  //right
+  if (key.toLowerCase() == "d") {
+    coord.x = +1;
+    coord.y = 0;
+
+  }
+
+  if (coord.x == '' || coord.y == '')
+  {
+    return null
+  }
+
+
+  return coord
 }
+
+
