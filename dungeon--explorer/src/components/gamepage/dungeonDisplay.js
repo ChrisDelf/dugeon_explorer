@@ -40,13 +40,13 @@ const DungeonDisplay = props => {
     (<Row>
       {r.map(cell => {
         let color = ''
-        if (cell.roomType === 'Floor') {
+        if (cell.cellType === 'Floor') {
           color = 'brown';
         }
-        if (cell.roomType === 'Door') {
+        if (cell.cellType === 'Door') {
           color = 'gray';
         }
-        if (cell.roomType === 'Wall') {
+        if (cell.cellType === 'Wall') {
           color = 'black';
         }
         

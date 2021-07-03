@@ -3,42 +3,23 @@ import { connect } from 'react-redux';
 import styled from 'styled-components';
 import GameMenu from './gamemenu'
 import DungeonDisplay from './dungeonDisplay'
-import { playerMovement, updateCell } from '../../action/gameActions';
+import { playerMovement, updateCell, updatePlayer } from '../../actions/gameActions.js';
 
 const GamePage = props => {
-
-  cellCheck = (cellId) => {
-
-  return
-  }
-
   // our key event handler functions
-  const {grid, monsters, players} = props;
-  gameKeyEvent = (Key) => {
+  const { grid, monsters, players } = props;
 
-    let player = players[0] 
-    // up
-    if (key.toLowerCase() == "w") {
-    player
+  useEffect(() => {
+    let move = window.addEventListener('keydown', props.playerMovement);
+    if (move != null) {
+      console.log(move)
+    
     }
-    // down
-    if (key.toLowerCase() == "s") {
-
-    }
-
-    //left
-    if (key.toLowerCase() == "a") {
+    return () => {
+      window.removeEventListener('keydown', props.playerMovement)
 
     }
-
-    //right
-    if (key.toLowerCase() == "d") {
-
-    }
-    return null
-  }
-
-
+  }, []);
 
   return (<div><p>Main page</p>
     <DungeonDisplay />

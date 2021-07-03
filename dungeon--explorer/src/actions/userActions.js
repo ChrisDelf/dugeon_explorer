@@ -53,7 +53,6 @@ export const generateMap = (data, userid) => dispatch => {
 
 
   dispatch({ type: GEN_MAP_START });
-
   axios({
     method: 'POST',
     url: `${url}/game/generatemap/${userid}`,
@@ -83,7 +82,7 @@ export const selectMap = (mapid) => dispatch => {
 
 
   }).then(res => {
-    
+    console.log(res.data)
     dispatch({ type: SELECT_MAP_SUCCESS, payload: res.data })
 
   }).catch(err => {
