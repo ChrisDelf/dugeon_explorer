@@ -9,14 +9,21 @@ const GamePage = props => {
   // our key event handler functions
   const { grid, monsters, players } = props;
 
+  const logKey = (e) => {
+    let player = players[0]
+    
+    let updatedP = props.playerMovement(e.key, grid, player)
+
+  }
+
   useEffect(() => {
-    let move = window.addEventListener('keydown', props.playerMovement);
+    let move = window.addEventListener('keypress', logKey);
     if (move != null) {
       console.log(move)
     
     }
     return () => {
-      window.removeEventListener('keydown', props.playerMovement)
+      window.removeEventListener('keypress', logKey)
 
     }
   }, []);
