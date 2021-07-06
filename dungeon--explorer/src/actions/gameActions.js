@@ -55,26 +55,45 @@ export const updateMonster = (data, monsterid) => dispatch => {
 
 
 
-export const updateCell = (cellId) => dispatch => {
+export const updateCell = (data, cellId) => dispatch => {
+ const token = localStorage.getItem('token');
 
 
 
-  return null
+  axios({
+    method: 'PUT',
+    url: `${url}/updatecell/{cellId}${cellId}`,
+    data: data,
+    headers: {
+      Authorization: token,
+    },
+  }).then(res => {
+    console.log(res)
+
+
+  }).catch(err => {
+    console.log(err)
+
+  })
+
 }
 
-export const playerMovement = (e, grid) => dispatch => {
+
+
+
+
+export const playerMovement = (key, grid, player) => dispatch => {
   // since we don't have to worry about multiple players we can just grab the first one for now
   // need to find a better solutions for this
 
   let coord = { x: '', y: '' }
 
-
-
-  let key = e.key
   // up
   if (key.toLowerCase() == "w") {
+
     coord.x = 0;
     coord.y = 1
+
   }
   // down
   if (key.toLowerCase() == "s") {
@@ -97,13 +116,37 @@ export const playerMovement = (e, grid) => dispatch => {
 
   }
 
-  if (coord.x == '' || coord.y == '')
-  {
+  if (coord.x == '' & coord.y == '') {
+
     return null
   }
+  console.log("current", grid[player.playery][player.playerx])
+  console.log("next", grid[player.playery + coord.y][player.playerx + coord.x]
+)
+
+  // now we want to check what the player is going to walk into
+  let current_cell = grid[player.playery][player.playerx]
+  let next_cell = grid[player.playery + coord.y][player.playerx + coord.x]
+
+  if (next_cell.cellType == "Floor") {
+    player.playery = player.playery + coord.y
+    player.playerx = player.playerx + coord.x
+
+    //we have to update both cell's containsPlayer array
+    
+    next_cell.containsP.push(player.playerid)
+    current_cell.containsP.remove(player.playerid)
+
+    updatePlayer(player, player.playerid)
+      .then(() => { updateCell(next_cell, next_cell.cellId) })
+      .then(() => { updateCell(current_cell, next_cell.cellId)})
 
 
-  return coord
+
+
+  }
+
+   return coord
 }
 
 
