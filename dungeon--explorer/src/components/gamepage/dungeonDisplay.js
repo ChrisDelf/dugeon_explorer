@@ -50,10 +50,10 @@ const DungeonDisplay = props => {
           color = 'black';
         }
         
-        if (cell.containsM != null && cell.roomType != 'Wall') {
+        if (cell.containsM.length > 0 && cell.roomType != 'Wall') {
           color = 'red';
         }
-        if (cell.containsP != null && cell.roomType != 'Wall') {
+        if (cell.containsP.length > 0 && cell.roomType != 'Wall') {
           color = 'yellow'
         }
 

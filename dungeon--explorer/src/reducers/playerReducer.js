@@ -23,6 +23,8 @@ const initState = {
   grid:[],
   playerLoading: false,
   playerId: '',
+  player: '',
+  mapId: '',
 }
 
 
@@ -75,22 +77,25 @@ const playerReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         error: '',
-        authLoading: true,
+        playerLoading: true,
       }
     case SELECT_MAP_SUCCESS:
+      
       return {
         ...state,
         error: '',
         grid: JSON.parse(payload.grid),
         players: payload.players,
+        player:payload.players[0],
         monsters: payload.monsters,
-        authLoading: false,
+        mapId: payload.mapid,
+        playerLoading: false,
       }
     case SELECT_MAP_FAILURE:
       return {
         ...state,
         error: payload,
-        authLoading: false
+        playerLoading: false
       }
 
     default:
