@@ -56,7 +56,7 @@ export const updateMonster = (data, monsterid) => dispatch => {
 
 
 export const updateCell = (data, cellId) => dispatch => {
- const token = localStorage.getItem('token');
+  const token = localStorage.getItem('token');
 
 
 
@@ -85,7 +85,7 @@ export const updateCell = (data, cellId) => dispatch => {
 export const playerMovement = (key, grid, player) => dispatch => {
   // since we don't have to worry about multiple players we can just grab the first one for now
   // need to find a better solutions for this
-
+  const token = localStorage.getItem('token');
   let coord = { x: '', y: '' }
 
   // up
@@ -120,9 +120,7 @@ export const playerMovement = (key, grid, player) => dispatch => {
 
     return null
   }
-  console.log("current", grid[player.playery][player.playerx])
-  console.log("next", grid[player.playery + coord.y][player.playerx + coord.x]
-)
+
 
   // now we want to check what the player is going to walk into
   let current_cell = grid[player.playery][player.playerx]
@@ -133,20 +131,83 @@ export const playerMovement = (key, grid, player) => dispatch => {
     player.playerx = player.playerx + coord.x
 
     //we have to update both cell's containsPlayer array
-    
-    next_cell.containsP.push(player.playerid)
-    current_cell.containsP.remove(player.playerid)
 
-    updatePlayer(player, player.playerid)
-      .then(() => { updateCell(next_cell, next_cell.cellId) })
-      .then(() => { updateCell(current_cell, next_cell.cellId)})
+    next_cell.containsP.push(player.playerid)
+    console.log(current_cell.containsP)
+    current_cell.containsP.pop()
+
+
+    dispatch({ type: UPDATE_PLAYER_START })
+
+    axios({
+      method: 'PUT',
+      url: `${url}/game/player/update/${player.playerid}`,
+      data: player,
+      headers: {
+        Authorization: token,
+      },
+    }).then(res => {
+      dispatch({ type: UPDATE_PLAYER_SUCCESS, payload: res.data }).then(() => {
+        axios({
+          method: 'PUT',
+          url: `${url}/updatecell/{cellId}${current_cell, current_cell.cellId}`,
+          data: current_cell,
+          headers: {
+            Authorization: token,
+          },
+        }).then(res => {
+          console.log(res)
+
+
+        }).catch(err => {
+          console.log(err)
+
+        })
+
+
+
+      }).then(() => {
+        dispatch({ type: UPDATE_PLAYER_SUCCESS, payload: res.data }).then(() => {
+          axios({
+            method: 'PUT',
+            url: `${url}/updatecell/{cellId}${next_cell, next_cell.cellId}`,
+            data: next_cell,
+            headers: {
+              Authorization: token,
+            },
+          }).then(res => {
+            console.log(res)
+
+
+          }).catch(err => {
+            console.log(err)
+
+          })
+
+
+
+        })
+
+
+
+      })
+
+    }).catch(err => { dispatch({ type: UPDATE_PLAYER_FAILURE, payload: err }) })
+
+
+
+    //updatePlayer(player, player.playerid)
+
+
+    //  .then(() => { updateCell(next_cell, next_cell.cellId) })
+    // .then(() => { updateCell(current_cell, next_cell.cellId)})
 
 
 
 
   }
 
-   return coord
+  return coord
 }
 
 

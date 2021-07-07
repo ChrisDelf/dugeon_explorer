@@ -46,6 +46,7 @@ const SavedMenu = props => {
   useEffect(() => {
     props.getMaps(props.userid);
   }, []);
+
   return (
     <Container>
       <Header>Saved Maps<button onClick={() => { props.history.push('/homepage/') }}>Back</button>
