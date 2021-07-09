@@ -31,7 +31,13 @@ const Row = styled.div`
 
 const DungeonDisplay = props => {
   const [cellColor, setCellColor] = useState('Black')
+  const [tempArray, setTempArray] = useState([])
+  const { mapId, player, playerLoading } = props
 
+  useEffect(() => {
+   
+    props.selectMap(mapId)
+  }, [])
 
   return (<div>{props.grid == null || props.grid.length == 0 ? (<div>Map has not loaded</div>) :
 
@@ -42,6 +48,7 @@ const DungeonDisplay = props => {
         let color = ''
         if (cell.cellType === 'Floor') {
           color = 'brown';
+
         }
         if (cell.cellType === 'Door') {
           color = 'gray';
@@ -49,7 +56,7 @@ const DungeonDisplay = props => {
         if (cell.cellType === 'Wall') {
           color = 'black';
         }
-        
+
         if (cell.containsM.length > 0 && cell.roomType != 'Wall') {
           color = 'red';
         }
@@ -76,7 +83,10 @@ const DungeonDisplay = props => {
 
 const mapStateToProps = state => {
   return {
-    grid: state.playerReducer.grid
+    grid: state.playerReducer.grid,
+    mapId: state.playerReducer.mapId,
+    player: state.playerReducer.player,
+    playerLoading: state.playerReducer.playerLoading
   }
 }
 

@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
 import GameMenu from './gamemenu'
@@ -9,34 +9,42 @@ import { selectMap } from '../../actions/userActions';
 const GamePage = props => {
   // our key event handler functions
   const { grid, monsters, players, player, loading, mapId } = props;
+  const [refresh, setRefresh] = useState(false);
 
   const logKey = (e) => {
+
     if (player == '') {
 
 
       return
     }
 
-    let updatedP = props.playerMovement(e.key, grid, player)
+    let updatedP = props.playerMovement(e.key, grid, player, mapId, setRefresh)
 
   }
 
   useEffect(() => {
+    setRefresh(false)
     if (player != '') {
-      window.addEventListener('keypress', logKey);
+            window.addEventListener('keypress', logKey);
     }
 
+
+
+   
+
+        props.selectMap(mapId)
     return () => {
       window.removeEventListener('keypress', logKey)
 
     }
 
-  }, []);
+  }, [refresh]);
 
   return (<div><p>Main page</p>
     <DungeonDisplay />
     <GameMenu />
-  </div>)
+  </div>) 
 
 }
 
