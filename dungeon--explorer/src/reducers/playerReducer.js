@@ -10,21 +10,26 @@ const {
   SELECT_MAP_SUCCESS,
   SELECT_MAP_START,
   SELECT_MAP_FAILURE,
- 
+  UPDATE_GRID_START,
+  UPDATE_GRID_SUCCESS,
+  UPDATE_GRID_FAILURE,
+
+
 } = types;
 
 
 const initState = {
- selectedMap: '',
- selectedGrid: [],
+  selectedMap: '',
+  selectedGrid: [],
   maps: [],
-  monsters:[],
-  players:[],
-  grid:[],
+  monsters: [],
+  players: [],
+  grid: [],
   playerLoading: false,
   playerId: '',
   player: '',
   mapId: '',
+  
 }
 
 
@@ -59,7 +64,7 @@ const playerReducer = (state = initState, { type, payload }) => {
         playerLoading: true,
       }
 
-    case GEN_MAP_SUCCESS:
+    case GEN_MAP_SUCCESS: 
       return {
         ...state,
         error: '',
@@ -80,13 +85,13 @@ const playerReducer = (state = initState, { type, payload }) => {
         playerLoading: true,
       }
     case SELECT_MAP_SUCCESS:
-      
+
       return {
         ...state,
         error: '',
         grid: JSON.parse(payload.grid),
         players: payload.players,
-        player:payload.players[0],
+        player: payload.players[0],
         monsters: payload.monsters,
         mapId: payload.mapid,
         playerLoading: false,
@@ -96,6 +101,29 @@ const playerReducer = (state = initState, { type, payload }) => {
         ...state,
         error: payload,
         playerLoading: false
+      }
+
+    case UPDATE_GRID_START:
+
+      return {
+        ...state,
+        error: '',
+        playerLoading: true,
+      }
+
+    case UPDATE_GRID_SUCCESS:
+      return {
+        ...state,
+        playerLoading: false,
+        grid: payload,
+        
+      }
+
+    case UPDATE_GRID_FAILURE:
+      return {
+        ...state,
+        playerLoading: false,
+        error: payload
       }
 
     default:
