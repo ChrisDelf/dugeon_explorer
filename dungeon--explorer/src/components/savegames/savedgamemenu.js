@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import styled from 'styled-components';
-import { getMaps, selectMap } from '../../actions/userActions.js'
+import { getMaps, selectMap, loadMap } from '../../actions/userActions.js'
 
 
 const Container = styled.div`
@@ -53,7 +53,7 @@ const SavedMenu = props => {
       </Header>
       <div className="btnContainer">
         {props.maps.map(m => (
-          <Button onClick={() => { props.selectMap(m); props.history.push('/gamepage/');}}>{m}</Button>))}
+          <Button onClick={() => { props.loadMap(m, props.history)}}>{m}</Button>))}
       </div>
 
     </Container>
@@ -72,4 +72,4 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps, { getMaps, selectMap })(SavedMenu);
+export default connect(mapStateToProps, { getMaps, selectMap, loadMap })(SavedMenu);

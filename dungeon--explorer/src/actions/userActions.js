@@ -92,3 +92,34 @@ export const selectMap = (mapid) => dispatch => {
 
 }
 
+export const loadMap = (mapid, history) => dispatch => {
+  const token = localStorage.getItem('token');
+  dispatch({ type: SELECT_MAP_START })
+
+  axios({
+    method: 'GET',
+    url: `${url}/game/selectmap/${mapid}`,
+    headers: {
+      Authorization: token,
+    },
+
+
+  }).then(res => {
+    dispatch({ type: SELECT_MAP_SUCCESS, payload: res.data })
+
+  }).catch(err => {
+    dispatch({ type: SELECT_MAP_FAILURE, payload: err })
+
+  }).then( () => {
+
+  history.push("/gamepage/")
+
+  })
+
+
+}
+
+
+
+
+
