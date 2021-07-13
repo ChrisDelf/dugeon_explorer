@@ -13,6 +13,9 @@ const {
   UPDATE_GRID_START,
   UPDATE_GRID_SUCCESS,
   UPDATE_GRID_FAILURE,
+  UPDATE_PLAYER_START,
+  UPDATE_PLAYER_SUCCESS,
+  UPDATE_PLAYER_FAILURE
 
 
 } = types;
@@ -29,7 +32,7 @@ const initState = {
   playerId: '',
   player: '',
   mapId: '',
-  
+
 }
 
 
@@ -64,7 +67,7 @@ const playerReducer = (state = initState, { type, payload }) => {
         playerLoading: true,
       }
 
-    case GEN_MAP_SUCCESS: 
+    case GEN_MAP_SUCCESS:
       return {
         ...state,
         error: '',
@@ -115,8 +118,8 @@ const playerReducer = (state = initState, { type, payload }) => {
       return {
         ...state,
         playerLoading: false,
-        grid: payload,
-        
+        grid: JSON.parse(payload.grid),
+
       }
 
     case UPDATE_GRID_FAILURE:
@@ -125,10 +128,29 @@ const playerReducer = (state = initState, { type, payload }) => {
         playerLoading: false,
         error: payload
       }
-
+    case UPDATE_PLAYER_START:
+      return {
+        ...state,
+        playerLoading: true,
+        error: ''
+      }
+    case UPDATE_PLAYER_SUCCESS:
+     
+      return {
+        ...state,
+        playerLoading: false,
+        player: payload,
+      }
+    case UPDATE_PLAYER_FAILURE:
+      return {
+        ...state,
+        playerLoading: false,
+        error: ''
+      }
     default:
       return state;
   }
+
 }
 
 

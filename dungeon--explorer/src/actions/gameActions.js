@@ -95,13 +95,13 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
   if (key.toLowerCase() == "w") {
 
     coord.x = 0;
-    coord.y = 1
+    coord.y = -1
 
   }
   // down
   if (key.toLowerCase() == "s") {
     coord.x = 0;
-    coord.y = -1;
+    coord.y = 1;
 
   }
 
@@ -134,6 +134,8 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
   if (next_cell.cellType == "Floor") {
     player.playery = player.playery + coord.y
     player.playerx = player.playerx + coord.x
+    player.cellId = next_cell.cellid
+    
 
     //we have to update both cell's containsPlayer array
 
@@ -144,6 +146,8 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
 
     // updating the player's position
     //
+    console.log("Current", current_cell)
+    console.log("moving into", next_cell)
     dispatch({ type: UPDATE_PLAYER_START })
 
     axios({
@@ -168,9 +172,11 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
             Authorization: token,
           },
         }).then(res => {
-         
+
+ //         console.log("updated current", res.data)
+
         }).catch(err => {
-        
+
 
         })
 
@@ -178,6 +184,7 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
 
 
       }).then(() => {
+
         axios({
           method: 'PUT',
           url: `${url}/update/cell/${next_cell.cellid}`,
@@ -186,11 +193,11 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
             Authorization: token,
           },
         }).then(res => {
-         
+    //      console.log("updated next", res.data)
 
 
         }).catch(err => {
-         
+
 
         })
 
@@ -206,19 +213,20 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
             Authorization: token,
           },
         }).then(res => {
-          dispatch({ type: UPDATE_GRID_START, payload: res.data })
+          dispatch({ type: UPDATE_GRID_SUCCESS, payload: res.data })
 
 
         }).catch(err => {
-          dispatch({ type: UPDATE_GRID_START, payload: err })
+          console.log(err)
+          dispatch({ type: UPDATE_GRID_FAILURE, payload: err })
 
 
         })
 
       }).then(() => {
-      setRefresh(true)
+        setRefresh(true)
 
-      } )
+      })
       .catch(err => {
         dispatch({ type: UPDATE_PLAYER_FAILURE, payload: err })
 
