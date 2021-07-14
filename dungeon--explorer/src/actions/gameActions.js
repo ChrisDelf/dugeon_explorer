@@ -131,7 +131,7 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
 
 
 
-  if (next_cell.cellType == "Floor") {
+  if (next_cell.cellType == "Floor" || next_cell.cellType == "Door") {
     player.playery = player.playery + coord.y
     player.playerx = player.playerx + coord.x
     player.cellId = next_cell.cellid
@@ -143,11 +143,10 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
 
     current_cell.containsP.pop()
 
-
+    const export_grid = grid.toString()
     // updating the player's position
     //
-    console.log("Current", current_cell)
-    console.log("moving into", next_cell)
+
     dispatch({ type: UPDATE_PLAYER_START })
 
     axios({
@@ -208,7 +207,7 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
         axios({
           method: 'PUT',
           url: `${url}/update/grid/${mapid}`,
-          data: grid,
+          data: export_grid,
           headers: {
             Authorization: token,
           },
@@ -231,10 +230,13 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
         dispatch({ type: UPDATE_PLAYER_FAILURE, payload: err })
 
       })
+ return coord
+} else {
+
+return null
+}
 
   }
 
-  return coord
-}
-
+ 
 
