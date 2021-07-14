@@ -33,7 +33,7 @@ const GamePage = props => {
 
    
 
-        props.selectMap(mapId)
+   
     return () => {
       window.removeEventListener('keypress', logKey)
 
