@@ -135,7 +135,7 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
     player.playery = player.playery + coord.y
     player.playerx = player.playerx + coord.x
     player.cellId = next_cell.cellid
-    
+
 
     //we have to update both cell's containsPlayer array
 
@@ -143,7 +143,8 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
 
     current_cell.containsP.pop()
 
-    const export_grid = grid.toString()
+    const export_grid = JSON.stringify(grid)
+    
     // updating the player's position
     //
 
@@ -159,6 +160,8 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
     })
       .then(res => {
 
+        console.log(current_cell)
+
         dispatch({ type: UPDATE_PLAYER_SUCCESS, payload: res.data })
 
       }).then(() => {
@@ -168,11 +171,13 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
           url: `${url}/update/cell/${current_cell.cellid}`,
           data: current_cell,
           headers: {
-            Authorization: token,
+            "authorization": token,
+            "content-type": "application/json",
+            "Accept": "application/json"
           },
         }).then(res => {
 
- //         console.log("updated current", res.data)
+          //         console.log("updated current", res.data)
 
         }).catch(err => {
 
@@ -183,16 +188,18 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
 
 
       }).then(() => {
-
+        console.log(next_cell)
         axios({
           method: 'PUT',
           url: `${url}/update/cell/${next_cell.cellid}`,
           data: next_cell,
           headers: {
-            Authorization: token,
+            "Authorization": token,
+            "content-type": "application/json",
+            "Accept": "application/json"
           },
         }).then(res => {
-    //      console.log("updated next", res.data)
+          //      console.log("updated next", res.data)
 
 
         }).catch(err => {
@@ -212,6 +219,7 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
             Authorization: token,
           },
         }).then(res => {
+          console.log("response data", res)
           dispatch({ type: UPDATE_GRID_SUCCESS, payload: res.data })
 
 
@@ -230,13 +238,13 @@ export const playerMovement = (key, grid, player, mapid, setRefresh) => dispatch
         dispatch({ type: UPDATE_PLAYER_FAILURE, payload: err })
 
       })
- return coord
-} else {
+    return coord
+  } else {
 
-return null
-}
-
+    return null
   }
 
- 
+}
+
+
 

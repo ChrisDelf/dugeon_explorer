@@ -27,7 +27,7 @@ const GamePage = props => {
     setRefresh(false)
     if (player != '') {
             window.addEventListener('keypress', logKey);
-    }
+    
 
 
 
@@ -37,6 +37,7 @@ const GamePage = props => {
     return () => {
       window.removeEventListener('keypress', logKey)
 
+    }
     }
 
   }, [refresh]);

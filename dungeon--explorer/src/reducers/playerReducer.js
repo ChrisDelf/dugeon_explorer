@@ -123,6 +123,7 @@ const playerReducer = (state = initState, { type, payload }) => {
       }
 
     case UPDATE_GRID_FAILURE:
+      console.log(payload)
       return {
         ...state,
         playerLoading: false,
